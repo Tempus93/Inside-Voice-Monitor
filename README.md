@@ -1,6 +1,6 @@
 # Inside-Voice-Monitor
 ## Project Overview
-This Arduino project is a real-time environmental monitoring system that tracks distance and sound levels using an ultrasonic sensor and a decibel meter. The system switches between two primary states: scanning and listening, providing real-time feedback through an LCD display and LED indicators.
+This Arduino project is a real-time environmental monitoring system that tracks a person's distance and sound levels using an ultrasonic sensor and a decibel meter. The system switches between two primary states: scanning and listening, providing real-time feedback through an LCD display and LED indicators.
 
 It Features:
 

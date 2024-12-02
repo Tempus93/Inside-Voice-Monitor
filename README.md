@@ -24,7 +24,7 @@ Red and Green LEDs signals the appropriate noise level
 - LEDs(Blue Red and Green)
 - Necessary jumper wires and breadboard
 
-## Arduino Pin Configuration
+## Arduino Pin Configuration (Can be customized from their default pins during setup)
 
 ### LCD Display Pins
 
@@ -41,8 +41,8 @@ Red and Green LEDs signals the appropriate noise level
 | Color  | Pins |
 | ------------- | ------------- |
 | Blue  | 13  |
-| Green  | 8  |
-| Red  | 12  |
+| Green  | 12  |
+| Red  | 8  |
 
 ### UltraSonic Sensor Pins
 Trigger: Digital Pin 9

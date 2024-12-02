@@ -17,7 +17,7 @@ Blue LED signals state changes, Red and Green LEDs signal noise level
 ## Hardware Requirements
 Arduino Uno R3
 Ultrasonic Sensor
-Microphone Module (KY-508)
+Microphone Module (KY-038)
 16x2 LCD Display
 LEDs(Blue Red and Green)
 Necessary jumper wires and breadboard

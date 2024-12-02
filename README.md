@@ -26,17 +26,14 @@ Necessary jumper wires and breadboard
 
 ### LCD Display Pins
 
-RS: Digital Pin 7, 
-
-Enable: Digital Pin 6
-
-D4: Digital Pin 5
-
-D5: Digital Pin 4
-
-D6: Digital Pin 3
-
-D7: Digital Pin 2
+| Component | Arduino Pin |
+|-----------|-------------|
+| RS | Digital Pin 7 |
+| Enable | Digital Pin 6 |
+| D4 | Digital Pin 5 |
+| D5 | Digital Pin 4 |
+| D6 | Digital Pin 3 |
+| D7 | Digital Pin 2 |
 
 ### LED Pins
 | Color  | Pins |

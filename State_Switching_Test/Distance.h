@@ -7,7 +7,7 @@ public:
   Distance(int i = 0);
 
   // setup the Pins for the sensor
-  void setupUSSensor();
+  void setupUSSensor(int echo = 9, int trig = 10);
 
   // send out UltraSonic Pulses
   void Pulse();

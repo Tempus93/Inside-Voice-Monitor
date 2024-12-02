@@ -12,7 +12,7 @@ public:
     int measureDecibels();
 
     // setup the inital pins and such
-    void setup();
+    void setup(int in = A0, int rled = 8, int gled = 12, int bled = 13);
 
     char loudness_Char();
 

@@ -1,8 +1,8 @@
 #include "Decibel.h"
 
 const float NOISE_FLOOR = 20.0;   // Minimum threshold to filter out background noise
-const int SAMPLE_WINDOW = 50, SensorPin = A0;     // Number of samples to collect & pin
-const int RLED = 12, GLED = 8, BLED = 13;
+const int SAMPLE_WINDOW = 50;     // Number of samples to collect & pin
+int RLED, GLED, BLED, SensorPin;
 
 
 DecibelMeter::DecibelMeter(float calibrationFactor) 
@@ -13,7 +13,12 @@ float DecibelMeter::getVoltage(int rawValue) {
 }
 
 //pins setup
-void DecibelMeter::setup(){
+void DecibelMeter::setup(int microphone_pin, int r_led, int g_led, int b_led){
+  SensorPin = microphone_pin;
+  RLED = r_led; 
+  GLED = g_led;
+  BLED = b_led;
+
   pinMode(SensorPin, INPUT);
   pinMode(GLED, OUTPUT);
   pinMode(RLED, OUTPUT);

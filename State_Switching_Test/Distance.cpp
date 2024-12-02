@@ -1,7 +1,7 @@
 #include "Distance.h"
-
 //Two things I want the distance file to be done with
-const int EchoPin = 9, TrigPin = 10;
+ int EchoPin;
+ int TrigPin;
 
 //Setups the UltraSonic Sensor's Pins
 Distance::Distance(int in)
@@ -9,9 +9,13 @@ Distance::Distance(int in)
     inrangestart(0){}
 
 //setup pins
-void Distance::setupUSSensor(){
-  pinMode(EchoPin, INPUT);
-  pinMode(TrigPin, OUTPUT);
+void Distance::setupUSSensor(int Echo, int Trig){
+  EchoPin = Echo; 
+  TrigPin = Trig;
+
+  pinMode(Echo, INPUT);
+  pinMode(Trig, OUTPUT);
+
 }
 
 //Allows the sensor to send out a pulse in a 2 ms interval.

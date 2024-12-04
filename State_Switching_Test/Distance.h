@@ -16,10 +16,10 @@ public:
   long PulsetoCentimeters();
 
   // timer for state switch when person in range
-  bool inrange(int duration);
+  bool inrange(long distance,int duration);
   
   // timer for state switch when person is NOT in range
-  bool Ninrange(int duration);
+  bool Ninrange(long distance, int duration);
 
 private:
   //to initalize the class in main file

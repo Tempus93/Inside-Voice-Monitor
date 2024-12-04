@@ -28,13 +28,14 @@ enum States{
 };
 
 
-States currentState = scanning; //initial state is scanning
+States currentState; //initial state is scanning
 
 void setup() {
   Serial.begin(9600);
   lcd.begin(16,2);
   Sensor.setupUSSensor();
   DBs.setup();
+  currentState = scanning;
 }
 
 void loop() {
@@ -44,10 +45,39 @@ void loop() {
   // Get the distance that is calculated in Centimeters
   long distance = Sensor.PulsetoCentimeters();
 
+
   switch(currentState){
+    case listening:
+
+      Serial.println("S: Listening\n");
+      
+      lcd.clear();
+      sprintf(buffer,"How Loud?");
+      lcd.print(buffer);
+
+      lcd.setCursor(0, 1);
+      sprintf(buffer,"%d DBm",DBs.measureDecibels());
+      DBs.loudness_Char();
+      lcd.print(buffer);
+
+      delay(500);
+
+
+      // if user steps out of range, times out the Listening state and reverts to scanning
+      if(Sensor.Ninrange(distance ,5000)){ // 10s Timed-Out Timer
+        currentState = scanning;
+        lcd.clear();
+        lcd.print("switching state...");
+        Serial.println("switching state...\n");
+
+        //indicate State Switching
+        IndicateStateChange();
+      }
+
+    break;
+
 
     case scanning:
-
       // State notification on Serial
       Serial.println("State: Scanning\n");
     
@@ -59,43 +89,18 @@ void loop() {
       lcd.setCursor(0,1);
 
       // Read Range in Both Centimeters & Inches
-      sprintf(buffer,"%i Cm | %2.2f In",distance, (distance / 2.54));
+      sprintf(buffer,"%i Cm",distance);
       lcd.print(buffer);
 
 
       // once person is in range for at least 3 seconds
-      if (Sensor.inrange(3000)){
-        currentState = listening;
+      if (Sensor.inrange(distance, 3000)){
         lcd.clear();
-        lcd.print("switching state...");
-        Serial.println("switching state...\n");
+        lcd.print("switching state");
         //solid blue to indicate State Switching
         IndicateStateChange();
-
-      }
-    break;
-
-    case listening:
-        Serial.println("S: Listening\n");
-
-
-      lcd.clear();
-      sprintf(buffer,"How Loud?");
-      lcd.print(buffer);
-      lcd.setCursor(0, 1);
-      sprintf(buffer,"%d DBm => %s",DBs.measureDecibels(), DBs.loudness_Char());
-      lcd.print(buffer);
-
-
-      // if user steps out of range, times out the Listening state and reverts to scanning
-      if(Sensor.Ninrange(10000)){ // 10s Timed-Out Timer
-        currentState = scanning;
+        currentState = listening;
         lcd.clear();
-        lcd.print("switching state...");
-        Serial.println("switching state...\n");
-
-        //indicate State Switching
-        IndicateStateChange();
       }
     break;
 
@@ -106,10 +111,10 @@ void loop() {
       Serial.println(Ebuffer);
 
       //Long enough to see the error.
-      delay(3000);
       currentState = scanning;
 
     break;
+    
   }  
 }
 

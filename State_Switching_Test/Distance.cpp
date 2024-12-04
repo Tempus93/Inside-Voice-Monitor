@@ -23,7 +23,7 @@ void Distance::Pulse(){
   digitalWrite(TrigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(TrigPin, HIGH);
-  delayMicroseconds(2);
+  delayMicroseconds(10);
   digitalWrite(TrigPin, LOW);
 }
 
@@ -33,17 +33,19 @@ long Distance::PulsetoCentimeters(){
   return distance / 29 / 2;
 }
 
-bool Distance::inrange(int duration){
-  long d = PulsetoCentimeters();
+bool Distance::inrange(long distance, int duration){
+  long d = distance;
 
   // when person is in this distance range
-  if(d <= 40){
+  if(d > 0 && d <= 40){
 
      if (inrangestart == 0) {
-
           //if its still 0 while in range, get current millis since machine start
           inrangestart = millis();
+          Serial.println("Obj detected at(MS): ");
+          Serial.println(d);
         }
+
         
         // Check if we've been in range long enough (3s) )
         if (millis() - inrangestart >= duration) {
@@ -51,24 +53,24 @@ bool Distance::inrange(int duration){
             inrangestart = 0;
             return true;
         }
-     else {
-        // Reset timer if out of range
-        inrangestart = 0;
+
+    }
+    else{ 
+      inrangestart = 0;
     }
 
     return false;
+    
   }
-}
+  
 
-bool Distance::Ninrange(int duration){
-
-    long d = PulsetoCentimeters();
-
+bool Distance::Ninrange(long distance, int duration){
+  long d = distance;
+  
   // when person is in this distance range
   if(d > 40){
 
      if (Ninrangestart == 0) {
-
           //if its still 0 while in range, get current millis since machine start
           Ninrangestart = millis();
         }
@@ -79,11 +81,13 @@ bool Distance::Ninrange(int duration){
             Ninrangestart = 0;
             return true;
         }
-     else {
+     
+  }  
+
+  else {
         // Reset timer if out of range
         Ninrangestart = 0;
     }
 
     return false;
-  }  
 }

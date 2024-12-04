@@ -13,7 +13,7 @@ float DecibelMeter::getVoltage(int rawValue) {
 }
 
 //pins setup
-void DecibelMeter::setup(int microphone_pin, int r_led, int g_led, int b_led){
+void DecibelMeter::setup(int microphone_pin, int r_led, int g_led , int b_led){
   SensorPin = microphone_pin;
   RLED = r_led; 
   GLED = g_led;
@@ -67,6 +67,8 @@ void DecibelMeter::loudness_LED(int db){
    
     if(db <= 52){
       //Green led blinks(low volume, bring it up)
+      digitalWrite(RLED, 0);
+
       digitalWrite(GLED, 0);
       delay(300);
       digitalWrite(GLED, 1);
@@ -81,19 +83,22 @@ void DecibelMeter::loudness_LED(int db){
     }
 
     if(db > 57 && db <= 63){
-      // perfect volume, NO NOTES :D
+      
       digitalWrite(GLED,0);
+      digitalWrite(RLED,0);
+      delay(150);
+      digitalWrite(RLED,1);
+      delay(150);
+      digitalWrite(RLED,0);
+
       digitalWrite(RLED,1);
     }
 
     if(db > 63){
       // NOOO TOOO LOUDD
       digitalWrite(GLED, 0);
-      digitalWrite(RLED,0);
-      delay(150);
       digitalWrite(RLED,1);
-      delay(150);
-      digitalWrite(RLED,0);
+
 
     }
 
@@ -101,6 +106,7 @@ void DecibelMeter::loudness_LED(int db){
 
 char DecibelMeter::loudness_Char(){
   int db = measureDecibels();
+
   loudness_LED(db);
   if(db <= 52){return "Quiet";}
 
@@ -109,4 +115,6 @@ char DecibelMeter::loudness_Char(){
   if(db > 58 && db <= 63){return "getting loud";}
 
   if(db > 63){return "TOO LOUD";}
+
+  return "ofr";
 }
